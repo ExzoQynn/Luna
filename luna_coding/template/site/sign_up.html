@@ -1,0 +1,49 @@
+{% extends 'site/base.html' %}
+{% block content %}
+
+<!-- {% if messages %}
+  {% for message in messages %}
+    <div class="messages-alert">
+      {{message}}
+    </div>
+  {% endfor %}
+{% endif %} -->
+
+{% if messages %}
+  {% for message in messages %}
+    <script>
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      
+      Toast.fire({
+        icon: 'warning',
+        title: '{{message}}'
+      })
+    </script>
+  {% endfor %}
+{% endif %}
+
+<div class="card" style="width:40%; margin-left: 30%; margin-top:8%">
+  <div class="card-body">
+    <form action="Register" method="POST">
+      {% csrf_token %}
+      <input type="email" class="form-control mb-3" placeholder="Email" name="email" id="email">
+      <input type="text" class="form-control mb-3" placeholder="Username" name="username" id="username">
+      <input type="password" class="form-control mb-3" placeholder="Password" name="password" id="password">
+      <input type="password" class="form-control mb-3" placeholder="Re-Password" name="repassword" id="repassword">
+      <div class="col-md-12 text-center">
+        <button class="btn btn-outline-warning" type="submit">Sign Up</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock content %}

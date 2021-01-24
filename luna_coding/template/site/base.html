@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Luna Coding</title>
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap");
+            body {
+                font-family: "Kanit", sans-serif !important;
+            }
+        </style>
+    </head>
+    <body>
+        {% extends 'site/js.html' %} 
+        {% block js %}
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'Home'%}">LUNA</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'Home'%}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                    </ul>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'Profile'%}">
+                        <button type="button" class="btn btn-outline-primary btn-pf me-2">
+                            {% if user.profile.photo_profile %}
+                            <img src="{{user.profile.photo_profile.url}}" width="30" height="30" class="rounded-circle" />
+                            {% endif %} {{user.username}}
+                        </button>
+                    </a>
+
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-circle btn-bg" id="setting" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-angle-down"></i></button>
+                        <ul class="dropdown-menu" aria-labelledby="setting">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'Profile'%}">
+                                    <b>{{user.username}}</b>
+                                    <br />
+                                    Profile
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'DashBoard'%}">Dash board</a></li>
+                            <li><a class="dropdown-item" href="{% url 'Profile'%}">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li
+                                ><a class="dropdown-item" href="{% url 'SingOut'%}"> <button type="button" class="btn btn-outline-danger btn-menu">Sign Out</button></a></li
+                            >
+                        </ul>
+                    </div>
+
+                    {% else %}
+                    <form class="d-flex">
+                        <a href="{% url 'signin-page' %}"> <button type="button" class="btn btn-outline-primary me-2">Sign In</button></a>
+                        <a href="{% url 'signup-page' %}"> <button type="button" class="btn btn-outline-warning">Sign Up</button> </a>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+
+        {% block content %} 
+        {% endblock content %} 
+        {% endblock %}
+    </body>
+</html>

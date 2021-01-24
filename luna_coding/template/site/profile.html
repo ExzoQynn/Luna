@@ -1,0 +1,21 @@
+{% extends 'site/base.html' %} 
+{% block content %}
+<div class="card" style="width: 40%; margin-left: 30%; margin-top: 8%">
+    <div class="card-body">
+        {% if user.profile.photo_profile %}
+        <img src="{{user.profile.photo_profile.url}}" width="200" class="mb-3" />
+        {% endif %}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" class="form-control mb-3" name="photo_profile" id="photo_profile" />
+            <input type="text" class="form-control mb-3" placeholder="Username" name="username" id="username" value="{{data.username}}" />
+            <input type="text" class="form-control mb-3" placeholder="Firstname" name="first_name" id="first_name" value="{{data.first_name}}" />
+            <input type="text" class="form-control mb-3" placeholder="Lastname" name="last_name" id="last_name" value="{{data.last_name}}" />
+            <input type="email" class="form-control mb-3" placeholder="Email" name="email" id="email" value="{{data.email}}" />
+            <div class="col-md-12 text-center">
+                <button class="btn btn-outline-primary" type="submit">Edit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
